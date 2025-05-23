@@ -1,0 +1,23 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.18-alpine3.21
+    environment:
+      - POSTGRES_DB=tg-dmp
+      - POSTGRES_USER=tg-dmp
+      - POSTGRES_PASSWORD=tg-dmp

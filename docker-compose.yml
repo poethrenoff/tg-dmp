@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres:14.18-alpine3.21
+    environment:
+      - POSTGRES_DB=tg-dmp
+      - POSTGRES_USER=tg-dmp
+      - POSTGRES_PASSWORD=tg-dmp
+    ports:
+      - 5432:5432
