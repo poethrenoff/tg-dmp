@@ -17,6 +17,12 @@ func (r *profileRepository) GetProfileById(id string) (Profile, error) {
 
 }
 
-func NewProfileRepository(db *sqlx.DB) ProfileRepository {
-	return &profileRepository{db: db}
+type Repository struct {
+	ProfileRepository
+}
+
+func NewRepository(db *sqlx.DB) *Repository {
+	return &Repository{
+		ProfileRepository: &profileRepository{db: db},
+	}
 }

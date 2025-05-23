@@ -7,6 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type ProfileHandler interface {
+	GetProfile(c *gin.Context)
+}
+
 type profileHandler struct {
 	service ProfileService
 }
@@ -21,6 +25,12 @@ func (h *profileHandler) GetProfile(c *gin.Context) {
 	}
 }
 
-func NewProfileHandler(s ProfileService) *profileHandler {
-	return &profileHandler{service: s}
+type Handler struct {
+	ProfileHandler
+}
+
+func NewHandler(s *Service) *Handler {
+	return &Handler{
+		ProfileHandler: &profileHandler{service: s.ProfileService},
+	}
 }

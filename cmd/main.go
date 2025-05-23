@@ -1,10 +1,7 @@
 package main
 
 import (
-	"os"
 	"tg-dmp/internal/app"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -12,15 +9,9 @@ func main() {
 
 	database := app.InitDatabase()
 
-	repository := app.NewProfileRepository(database)
-	service := app.NewProfileService(repository)
-	handler := app.NewProfileHandler(service)
+	repository := app.NewRepository(database)
+	service := app.NewService(repository)
+	handler := app.NewHandler(service)
 
-	if os.Getenv("APP_ENV") == "prod" {
-		gin.SetMode(gin.ReleaseMode)
-	}
-
-	router := gin.New()
-	router.GET("/get/:id", handler.GetProfile)
-	router.Run(":8080")
+	app.RunServer(handler)
 }
