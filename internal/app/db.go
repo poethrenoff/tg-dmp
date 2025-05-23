@@ -44,3 +44,9 @@ func InitDatabase() *sqlx.DB {
 
 	return db
 }
+
+func CloseDatabase(db *sqlx.DB) {
+	if err := db.Close(); err != nil {
+		log.Fatalf("error occured on db connection close: %s", err.Error())
+	}
+}

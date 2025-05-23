@@ -29,6 +29,12 @@ type Handler struct {
 	ProfileHandler
 }
 
+func (h *Handler) GerRouter() *gin.Engine {
+	router := gin.New()
+	router.GET("/get/:id", h.ProfileHandler.GetProfile)
+	return router
+}
+
 func NewHandler(s *Service) *Handler {
 	return &Handler{
 		ProfileHandler: &profileHandler{service: s.ProfileService},
